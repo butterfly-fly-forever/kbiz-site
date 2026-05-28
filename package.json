@@ -1,0 +1,32 @@
+{
+  "name": "kbiz-site-clone",
+  "version": "1.0.0",
+  "description": "K-Biz Consulting site clone — Node server with JSON persistence and admin CMS.",
+  "type": "commonjs",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "crawl": "node scripts/crawl-site.mjs",
+    "extract-design": "node scripts/extract-design.mjs home",
+    "visual-diff": "node scripts/visual-diff.mjs",
+    "compare": "node scripts/compare-sites.mjs all",
+    "sync:wix": "node scripts/sync-wix-assets.mjs",
+    "sync:kbiz-images": "node scripts/sync-kbiz-images.mjs",
+    "preflight": "node scripts/preflight.mjs",
+    "migrate:json-to-mongo": "node scripts/migrate-json-to-mongo.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.49.0",
+    "pngjs": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

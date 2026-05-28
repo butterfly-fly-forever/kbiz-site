@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a1f44" />
+  <title>K-Biz Consulting — Innovative consulting for a smarter growth</title>
+  <meta name="description" content="K-Biz Consulting · Nha Trang, Khánh Hòa. Investment consulting, new-business launching and business-development support." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <script>
+    (function () {
+      var h = location.hash;
+      if (h && h !== '#') {
+        var path = h.replace(/^#\/?/, '');
+        location.replace((path ? '/' + path : '/') + location.search);
+      }
+    })();
+  </script>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/store.js"></script>
+  <script type="text/babel" src="assets/components.jsx"></script>
+  <script type="text/babel" src="assets/site-components.jsx"></script>
+  <script type="text/babel" src="assets/site-pages.jsx"></script>
+  <script type="text/babel" src="assets/editor.jsx"></script>
+  <script type="text/babel" src="assets/admin.jsx"></script>
+  <script type="text/babel" src="assets/app.jsx"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+node_modules/
+data/*.json
+data/*.json.tmp
+data/pages/
+public/uploads/
+crawl-screenshots/
+.DS_Store
+*.log
+.env
