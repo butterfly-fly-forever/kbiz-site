@@ -15,7 +15,7 @@ const Home = () => {
         <div className="absolute inset-0 z-0">
           <picture>
             <img
-              src="https://static.wixstatic.com/media/a6d944_93726c78dcbc442b87fe455c878a4a5e~mv2.jpg/v1/fill/w_1440,h_623,fp_0.50_0.44,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Nha%20Trang%20Beach's%20view.jpg"
+              src="/site-assets/hero-nhatrang.jpg"
               alt="Nha Trang Beach's view"
               className="w-full h-full object-cover object-[50%_44%]"
             />
@@ -79,28 +79,28 @@ const Home = () => {
             {/* Project 1 */}
             <a href="/project-case-studies/frank-zhang" className="group block">
               <div className="aspect-[4/3] bg-gray-200 overflow-hidden rounded-md mb-3">
-                <img src="https://static.wixstatic.com/media/f6985b_5da35012ed1f45db8b8a88d4507ef421~mv2.jpg/v1/fill/w_300,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/frank-zhang-g8F_17QyJ7c-unsplash.jpg" alt="Project 1" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src="/site-assets/project-frank-zhang.jpg" alt="Project 1" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </div>
               <p className="text-[14px] font-bold group-hover:text-brand-darkPurple transition-colors">Add paragraph text. Click “Edit”</p>
             </a>
             {/* Project 2 */}
             <a href="/project-case-studies/cho-dam" className="group block">
               <div className="aspect-[4/3] bg-gray-200 overflow-hidden rounded-md mb-3">
-                <img src="https://static.wixstatic.com/media/f6985b_bc9a312644984c4fa1e033b897315784~mv2.jpg/v1/fill/w_300,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/cho-dam-nha-trang-9.jpg" alt="Project 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src="/site-assets/project-cho-dam.jpg" alt="Project 2" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </div>
               <p className="text-[14px] font-bold group-hover:text-brand-darkPurple transition-colors">Add paragraph text. Click “Edit”</p>
             </a>
             {/* Project 3 */}
             <a href="/project-case-studies/sup-2" className="group block">
               <div className="aspect-[4/3] bg-gray-200 overflow-hidden rounded-md mb-3">
-                <img src="https://static.wixstatic.com/media/f6985b_c96f1e1bd79d4c81bc20eb84761d093b~mv2.jpg/v1/fill/w_300,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/sup%202_edited.jpg" alt="Project 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src="/site-assets/project-sup2.jpg" alt="Project 3" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </div>
               <p className="text-[14px] font-bold group-hover:text-brand-darkPurple transition-colors">Add paragraph text. Click “Edit”</p>
             </a>
             {/* Project 4 */}
             <a href="/project-case-studies/z596" className="group block">
               <div className="aspect-[4/3] bg-gray-200 overflow-hidden rounded-md mb-3">
-                <img src="https://static.wixstatic.com/media/a6d944_fc81cddff1664a11aca4878f18e02810~mv2.jpg/v1/fill/w_300,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/z5963998317937_10c8e7a995602d5af7ec80fb8ea00541.jpg" alt="Project 4" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src="/site-assets/project-z596.jpg" alt="Project 4" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </div>
               <p className="text-[14px] font-bold group-hover:text-brand-darkPurple transition-colors">Add paragraph text. Click “Edit”</p>
             </a>
