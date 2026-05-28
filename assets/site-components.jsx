@@ -431,6 +431,28 @@ const SectionTeamGrid = ({ props: p = {} }) => (
   </section>
 );
 
+const SectionServiceConsulting = ({ props: p = {} }) => {
+  return (
+    <section className="bg-[#DBFDEB] py-16">
+      <div className="kb-container pl-[54px]">
+        <div className="grid grid-cols-[auto_1fr] gap-[64px] items-start">
+          <div className="flex items-center gap-4 pt-1">
+            <svg preserveAspectRatio="xMidYMid meet" data-bbox="2.665 2.667 10.667 10.666" xmlns="http://www.w3.org/2000/svg" viewBox="2.665 2.667 10.667 10.666" height="16" width="16" role="presentation" aria-hidden="true" aria-label="">
+              <g>
+                <path fill="#005E2C" d="M7.999 2.667 13.332 8l-5.333 5.333H2.665V2.667z"></path>
+              </g>
+            </svg>
+            <h2 className="text-brand-darkGreen font-bold text-xl uppercase tracking-wider">OUR SERVICES</h2>
+          </div>
+          <div>
+            <p className="text-[#333333] text-4xl leading-snug">Diverse solutions tailored to your bussiness</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const SectionContactForm = ({ props: p = {} }) => {
   const { t } = useLang();
   const toast = useToast();
@@ -514,6 +536,7 @@ const SECTION_MAP = {
   richText: SectionRichText,
   teamGrid: SectionTeamGrid,
   contactForm: SectionContactForm,
+  serviceConsulting: SectionServiceConsulting,
 };
 
 const SectionRenderer = ({ sections = [] }) => (
