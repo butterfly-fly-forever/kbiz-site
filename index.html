@@ -11,6 +11,30 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#3D0055',
+              lightPurple: '#E7AAFF',
+              darkPurple: '#B800FF',
+              green: '#B7FCD7',
+              darkGreen: '#005E2C',
+              darkerGreen: '#2E3F36',
+              lightGray: '#F3F8F0',
+            }
+          },
+          fontFamily: {
+            mono: ['"Azeret Mono"', 'monospace'],
+            sans: ['Arial', 'Helvetica', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 </head>
 <body>
   <script>
@@ -31,6 +55,7 @@
   <script type="text/babel" src="assets/components.jsx"></script>
   <script type="text/babel" src="assets/site-components.jsx"></script>
   <script type="text/babel" src="assets/site-pages.jsx"></script>
+  <script type="text/babel" src="assets/home.jsx"></script>
   <script type="text/babel" src="assets/editor.jsx"></script>
   <script type="text/babel" src="assets/admin.jsx"></script>
   <script type="text/babel" src="assets/app.jsx"></script>
