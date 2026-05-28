@@ -30,7 +30,7 @@
   --kb-font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --kb-font-mono: 'Azeret Mono', ui-monospace, monospace;
   --kb-container: 1280px;
-  --kb-nav-h: 80px;
+  --kb-nav-h: 120px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

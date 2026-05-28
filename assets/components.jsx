@@ -132,46 +132,56 @@ const Nav = () => {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const isActive = (p) => {
-    const parts = route.parts;
-    if (p === '') return parts.length === 0;
-    if (p === 'services') return parts[0] === 'services';
-    if (p === 'project-case-studies') return parts[0] === 'project-case-studies' && parts.length === 1;
-    return parts[0] === p;
-  };
   const go = (to) => (e) => { e.preventDefault(); nav(to); };
 
   return (
-    <header className={'kb-nav' + (scrolled ? ' is-scrolled' : '') + (mobileOpen ? ' is-open' : '')}>
-      <div className="kb-container kb-nav__inner">
-        <a href="/" onClick={go('')} className="kb-nav__brand"><Logo /></a>
-        <nav className="kb-nav__links" aria-label="Primary">
-          <a href="/" onClick={go('')} className={'kb-nav__link' + (isActive('') ? ' is-active' : '')}>{t('nav.home')}</a>
-          <div className="kb-nav__dropdown">
-            <a href="/services" onClick={go('services')} className={'kb-nav__link' + (isActive('services') ? ' is-active' : '')}>
-              {t('nav.services')} <Icon name="chevron" size={14} />
+    <header className={'w-full bg-[#DBFDEB] sticky top-0 z-[100] transition-all duration-200 border-b border-gray-200/50' + (scrolled ? ' shadow-sm' : '')}>
+      <div className="w-full px-[40px] h-[120px] flex items-center justify-between">
+        {/* Brand Logo */}
+        <a href="/" onClick={go('')} className="flex-shrink-0 flex items-center">
+          <img src="/site-assets/logo.png" alt="K-Biz Logo" className="h-[96px] w-auto object-contain" />
+        </a>
+
+        {/* Navigation Menu */}
+        <nav className="hidden md:flex items-center gap-[40px] ml-auto mr-[40px] h-full" aria-label="Primary">
+          <div className="relative group flex items-center h-full">
+            <a href="/services" onClick={go('services')} className="text-[#005E2C] hover:text-[#B800FF] font-bold text-[14px] tracking-wide transition-colors duration-200 flex items-center h-full">
+              Services
             </a>
-            <div className="kb-nav__menu" role="menu">
-              <a href="/services/consulting-1" onClick={go('services/consulting-1')}>{t('nav.svc1')}</a>
-              <a href="/services/consulting-2" onClick={go('services/consulting-2')}>{t('nav.svc2')}</a>
-              <a href="/services/consulting-3" onClick={go('services/consulting-3')}>{t('nav.svc3')}</a>
+            {/* Dropdown Menu */}
+            <div className="absolute top-[120px] left-1/2 -translate-x-1/2 min-w-[280px] bg-[#E7AAFF] flex flex-col p-8 gap-5 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 shadow-lg z-[200] rounded-none">
+              <a href="/services/consulting-1" onClick={go('services/consulting-1')} className="text-[#005E2C] hover:underline font-bold text-[14px] transition-all">
+                Investment Consulting
+              </a>
+              <a href="/services/consulting-2" onClick={go('services/consulting-2')} className="text-white hover:text-[#005E2C] hover:underline font-bold text-[14px] transition-all">
+                Start New Business
+              </a>
+              <a href="/services/consulting-3" onClick={go('services/consulting-3')} className="text-white hover:text-[#005E2C] hover:underline font-bold text-[14px] transition-all">
+                Business Developing Services
+              </a>
             </div>
           </div>
-          <a href="/project-case-studies" onClick={go('project-case-studies')} className={'kb-nav__link' + (isActive('project-case-studies') ? ' is-active' : '')}>{t('nav.projects')}</a>
-          <a href="/team-members-1" onClick={go('team-members-1')} className={'kb-nav__link' + (isActive('team-members-1') ? ' is-active' : '')}>{t('nav.about')}</a>
-          <a href="/contact" onClick={go('contact')} className={'kb-nav__link' + (isActive('contact') ? ' is-active' : '')}>{t('nav.contact')}</a>
-        </nav>
-        <div className="kb-nav__right">
-          <LangSwitch />
-          <a href="/contact" onClick={go('contact')} className="kb-btn kb-btn--primary kb-btn--contact kb-nav__cta">
-            {t('nav.cta')}
+          <a href="/project-case-studies" onClick={go('project-case-studies')} className="text-[#005E2C] hover:text-[#B800FF] font-bold text-[14px] tracking-wide transition-colors duration-200">
+            Projects
           </a>
-          <button type="button" className="kb-nav__burger" aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          <a href="/team-members-1" onClick={go('team-members-1')} className="text-[#005E2C] hover:text-[#B800FF] font-bold text-[14px] tracking-wide transition-colors duration-200">
+            About us
+          </a>
+        </nav>
+
+        {/* Right Cta */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          <a href="/contact" onClick={go('contact')} className="hidden md:inline-block bg-[#3D0055] text-white px-[36px] py-[12px] text-[14px] font-bold tracking-widest uppercase hover:bg-[#5C2D82] transition-colors duration-200 rounded-none">
+            Contact
+          </a>
+          <button type="button" className="md:hidden p-2 text-[#005E2C]" aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen} onClick={() => setMobileOpen(o => !o)}>
             <Icon name={mobileOpen ? 'close' : 'menu'} size={22} />
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Drawer */}
       <div className={'kb-drawer' + (mobileOpen ? ' is-on' : '')} aria-hidden={!mobileOpen}>
         <nav className="kb-drawer__inner" aria-label="Mobile">
           <a href="/" onClick={go('')} className="kb-drawer__link">{t('nav.home')}</a>
@@ -200,39 +210,41 @@ const Footer = () => {
   const { t } = useLang();
   const { nav, hashHref } = useRoute();
   const s = Store.getSettings();
-  const Link = ({ to, children }) => (
-    <a href={hashHref(to)} onClick={(e) => { e.preventDefault(); nav(to); }}>{children}</a>
-  );
+  const go = (to) => (e) => { e.preventDefault(); nav(to); };
   return (
-    <footer className="kb-footer">
-      <div className="kb-container">
-        <div className="kb-footer__grid">
-          <div className="kb-footer__brand">
-            <Logo light />
-            <p className="kb-footer__about">Innovative consulting for a smarter growth</p>
+    <footer className="w-full bg-gradient-to-b from-[#F7F8F7] to-[#EDEDED] py-[60px] border-t border-gray-200">
+      <div className="w-full px-[40px] grid grid-cols-2 gap-12 text-[#0C0C0C]">
+        {/* Logo & Contact Info */}
+        <div>
+          <div className="flex items-center gap-2 mb-6">
+            <img src="/site-assets/logo.png" alt="K-Biz Logo" className="h-[52px]" />
           </div>
-          <div>
-            <h6>Navigation</h6>
-            <ul>
-              <li><Link to="">{t('nav.home')}</Link></li>
-              <li><Link to="services">{t('nav.services')}</Link></li>
-              <li><Link to="project-case-studies">{t('nav.projects')}</Link></li>
-              <li><Link to="team-members-1">{t('nav.about')}</Link></li>
-              <li><Link to="contact">{t('nav.contact')}</Link></li>
-            </ul>
+          <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-2">CONTACT</p>
+          <p className="text-[14px] text-gray-600 leading-[22px] w-[360px] max-w-full mb-4">
+            {s.contactAddress}
+          </p>
+          <div className="text-[13px] text-gray-500 flex flex-col gap-1">
+            <span>Email: <a href={'mailto:' + s.contactEmail} className="text-[#005E2C] hover:underline">{s.contactEmail}</a></span>
+            <span>Phone: {s.contactPhone}</span>
           </div>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="flex justify-end gap-24 text-[14px] text-gray-700">
           <div>
-            <h6>Contact</h6>
-            <ul>
-              <li><Icon name="pin" size={16} /> {s.contactAddress}</li>
-              <li><Icon name="mail" size={16} /> <a href={'mailto:' + s.contactEmail}>{s.contactEmail}</a></li>
-              <li><Icon name="phone" size={16} /> {s.contactPhone}</li>
+            <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest mb-4">NAVIGATION</p>
+            <ul className="flex flex-col gap-2.5">
+              <li><a href="/" onClick={go('')} className="hover:text-[#B800FF] transition-colors">{t('nav.home')}</a></li>
+              <li><a href="/services" onClick={go('services')} className="hover:text-[#B800FF] transition-colors">{t('nav.services')}</a></li>
+              <li><a href="/project-case-studies" onClick={go('project-case-studies')} className="hover:text-[#B800FF] transition-colors">{t('nav.projects')}</a></li>
+              <li><a href="/team-members-1" onClick={go('team-members-1')} className="hover:text-[#B800FF] transition-colors">{t('nav.about')}</a></li>
+              <li><a href="/contact" onClick={go('contact')} className="hover:text-[#B800FF] transition-colors">{t('nav.contact')}</a></li>
             </ul>
           </div>
         </div>
-        <div className="kb-footer__bottom">
-          <span>© {new Date().getFullYear()} K-Biz Consulting</span>
-        </div>
+      </div>
+      <div className="w-full px-[40px] mt-12 pt-6 border-t border-gray-200 text-center text-[12px] text-gray-400">
+        <span>© {new Date().getFullYear()} K-Biz Consulting. All rights reserved.</span>
       </div>
     </footer>
   );
