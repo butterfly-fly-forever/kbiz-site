@@ -29,6 +29,9 @@ function App() {
       return <PostDetailPage slug={route.parts[1]} />;
     }
     const pageId = resolvePageId(route);
+    if (pageId === 'home') {
+      return <Home />;
+    }
     if (!pageId) return <div className="kb-container"><h1>Not found</h1></div>;
     return <PageFromJson pageId={pageId} />;
   }, [route.path]);
