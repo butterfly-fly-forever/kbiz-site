@@ -21,10 +21,6 @@ const ADMIN_USER = process.env.KBIZ_ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.KBIZ_ADMIN_PASS || 'kbiz2026';
 const AUTH_TOKEN_SECRET = process.env.KBIZ_TOKEN_SECRET || 'change-me-in-production';
 
-/** wix = serve source-code-wix HTML (pixel-faithful); react = legacy JSON/React SPA at /preview */
-const SITE_MODE = (process.env.SITE_MODE || 'wix').toLowerCase();
-const { serveWixPage, loadLocalHtml } = require('./lib/wix-html');
-
 async function ensureDir(p) { await fsp.mkdir(p, { recursive: true }); }
 
 async function readJSON(name, fallback) {
@@ -93,43 +89,7 @@ app.use('/site-assets', express.static(SITE_ASSETS));
 app.use('/kbiz-media', express.static(KBIZ_MEDIA_DIR, { maxAge: '7d' }));
 app.use(express.static(ROOT, { extensions: ['html'], fallthrough: true, index: false }));
 
-/** Wix HTML snapshots in source-code-wix/ for pixel reference */
-const WIX_REF_DIR = path.join(ROOT, 'source-code-wix');
-const WIX_REF_PAGES = {
-  '': 'source-code',
-  home: 'source-code',
-  services: 'services',
-  'services/consulting-1': 'service/consulting-1',
-  'services/consulting-2': 'service/consulting-2',
-  'services/consulting-3': 'service/consulting-3',
-  contact: 'contact',
-  projects: 'projects',
-  'project-case-studies': 'projects',
-  'team-members-1': 'about-us',
-  about: 'about-us',
-  'about-us': 'about-us',
-};
-
-async function sendWixReference(pageKey, req, res, next) {
-  const file = WIX_REF_PAGES[pageKey];
-  if (!file) {
-    return res.status(404).send('Unknown reference page. Try /reference, /reference/services, /reference/contact, /reference/projects, /reference/about-us');
-  }
-  try {
-    const origin = require('./lib/wix-html').publicOriginFromRequest(req);
-    const refPath = pageKey ? `${require('./lib/wix-html').KBIZ_PATH_PREFIX}/${pageKey}` : '/';
-    const html = await loadLocalHtml(WIX_REF_DIR, file, origin, refPath || '/');
-    res.type('html').send(html);
-  } catch (e) {
-    if (e.code === 'ENOENT') return res.status(404).send(`Missing source-code-wix/${file}`);
-    next(e);
-  }
-}
-
-app.get(['/reference', '/reference/'], (req, res, next) => sendWixReference('', req, res, next));
-app.get('/reference/:page', (req, res, next) => sendWixReference(req.params.page, req, res, next));
-
-app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), siteMode: SITE_MODE, persistence: 'json-files' }));
+app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), siteMode: 'react', persistence: 'json-files' }));
 
 app.post('/api/auth/login', (req, res) => {
   const { user, pass } = req.body || {};
@@ -299,25 +259,15 @@ app.post('/api/import', requireAuth, async (req, res) => {
   await readJSON('settings', SEED_SETTINGS);
 
   const INDEX_HTML = path.join(ROOT, 'index.html');
-  const REACT_SHELL = /^\/(admin(\/.*)?|preview(\/.*)?)$/;
 
-  app.get(REACT_SHELL, (req, res, next) => {
+  app.get(/^\/(?!api|uploads|site-assets|assets|node_modules).*/, (req, res, next) => {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
     res.sendFile(INDEX_HTML, (err) => (err ? next(err) : undefined));
   });
 
-  app.get(/^\/(?!api|reference|uploads|site-assets|assets|node_modules).*/, (req, res, next) => {
-    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-    if (SITE_MODE === 'react') {
-      return res.sendFile(INDEX_HTML, (err) => (err ? next(err) : undefined));
-    }
-    return serveWixPage(req, res, WIX_REF_DIR, next);
-  });
-
   app.listen(PORT, () => {
     console.log('K-Biz site at http://localhost:' + PORT);
-    console.log('  Site mode: ' + SITE_MODE + (SITE_MODE === 'wix' ? ' (Wix HTML snapshots)' : ' (React SPA)'));
+    console.log('  Site mode: React SPA');
     console.log('  Admin: http://localhost:' + PORT + '/admin — ' + ADMIN_USER + ' / ' + ADMIN_PASS);
-    if (SITE_MODE === 'wix') console.log('  React preview: http://localhost:' + PORT + '/preview');
   });
 })();
